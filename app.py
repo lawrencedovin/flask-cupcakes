@@ -11,6 +11,12 @@ app.config['SECRET_KEY'] = 'cluckcluck'
 
 connect_db(app)
 
+@app.route('/')
+def index_page():
+    cupcakes = Cupcake.query.all()
+    return render_template('index.html', cupcakes=cupcakes)
+
+
 @app.route('/api/cupcakes')
 def get_cupcakes():
     cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]

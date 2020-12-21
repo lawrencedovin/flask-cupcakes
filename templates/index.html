@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+{% block title %}Home Page{% endblock %} 
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>See all the cupcakes</h1>
+      <ul id="cupcake-list"></ul>
+      <form id="create-cupcake-form">
+        <div class="form-group">
+          <label for="flavor-input">Flavor: </label>
+          <input class="form-control" name="flavor-input" id="flavor-input" placeholder="Flavor"/>
+        </div>
+        <div class="form-group">
+          <label for="size-input">Size</label>
+          <input class="form-control" name="size-input" id="size-input" placeholder="Size"/>
+        </div>
+        <div class="form-group">
+          <label for="rating-input">Rating: </label>
+          <input class="form-control" name="rating-input" id="rating-input" placeholder="Rating"/>
+        </div>
+        <div class="form-group">
+          <label for="image-input">Image: </label>
+          <input class="form-control" name="image-input" id="image-input" placeholder="Image"/>
+        </div>
+        <button class="btn btn-primary">Create</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
