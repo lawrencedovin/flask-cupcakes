@@ -19,6 +19,7 @@ def index_page():
 
 @app.route('/api/cupcakes')
 def get_cupcakes():
+    # transforms the database data of each cupcake serializing it to be jsonified.
     cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
     return jsonify(cupcakes=cupcakes)
 
@@ -29,12 +30,16 @@ def get_cupcake(id):
 
 @app.route('/api/cupcakes', methods=["POST"])
 def create_cupcake():
+    # Creates a new Cupcake using json formatted data sent to this route
+    # Uses the Cupcake model and adds according values but the whole Cupcake model 
+    # isn't jasonified until it is serialized.
     new_cupcake = Cupcake(flavor=request.json["flavor"],
                             size=request.json["size"],
                             rating=request.json["rating"],
                             image=request.json["image"])
     db.session.add(new_cupcake)
     db.session.commit()
+    # jsonifies the whole Cupcake model
     response_json = jsonify(cupcake=new_cupcake.serialize())
     return (response_json, 201)
 
@@ -42,6 +47,8 @@ def create_cupcake():
 def update_cupcake(id):
     cupcake = Cupcake.query.get_or_404(id)
 
+    # Updates certain attributes of a cupcake and if there's no new value
+    # for a certain attribute it defaults to the current value
     cupcake.flavor = request.json.get("flavor", cupcake.flavor)
     cupcake.size = request.json.get("size", cupcake.size)
     cupcake.rating = request.json.get("rating", cupcake.rating)
