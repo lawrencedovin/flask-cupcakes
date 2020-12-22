@@ -1,12 +1,12 @@
 const BASE_URL = 'http://127.0.0.1:5000/api';
 
-// $('.delete-todo').click(deleteTodo);
+$('.delete-todo').click(deleteTodo);
 
-// async function deleteTodo() {
-//     const id = $(this).data('id');
-//     await axios.delete(`/api/todos/${id}`);
-//     $(this).parent().remove();
-// }
+async function deleteTodo() {
+    const id = $(this).data('id');
+    await axios.delete(`/api/todos/${id}`);
+    $(this).parent().remove();
+}
 
 function generateCupcakeHTML(cupcake) {
     return `
@@ -50,5 +50,15 @@ $("#create-cupcake-form").on("submit", async function (evt) {
     $("#cupcakes-list").append(newCupcake);
     $("#create-cupcake-form").trigger("reset");
 });
+
+$("#cupcakes-list").on("click", ".delete-button", async function (evt) {
+    evt.preventDefault();
+    // Retrieves the closest div to the current delete button
+    let $cupcake = $(evt.target).closest("div");
+    let cupcakeId = $cupcake.attr("data-cupcake-id");
+  
+    await axios.delete(`${BASE_URL}/cupcakes/${cupcakeId}`);
+    $cupcake.remove();
+  });
 
 $(showCupcakes);
